@@ -82,7 +82,93 @@
 
 ![](img/bug7.png)
 
+### 6. ###
+按下1次F10，执行的程序语句如下：
 
+	ListTraverse(L);
+
+这个函数的原型如下所示：
+
+    /* Initial condition: sequential linear table L already exists */
+    /* Operation results: the output of each data element in L in turn */
+    Status ListTraverse(LinkList L) {
+    	LinkList p = L->next;
+    	while (p) {
+    		visit(p->data);
+    		p = p->next;
+    	}
+    	printf("\n");
+    	return OK;
+    }
+
+在“局部变量”窗口中没有什么明显变化，可以看到在CMD窗口中输出提示信息：
+
+![](img/bug8.png)
+
+### 7. ###
+跳过非关键步骤，有个关键的程序语句，代码如下：
+
+	i = ListEmpty(L);
+
+上面语句的执行是判断链表L是否为空的，执行后在“局部变量”窗口中查看到的提示信息如下：
+
+![](img/bug9.png)
+
+同时，在CMD窗口中输出结果如下：
+
+![](img/bug10.png)
+
+### 8. ###
+按下F10调试，执行的程序语句如下：
+
+	i = ClearList(&L);
+
+这个语句的作用是清空链表L的，可以看到“局部变量”窗口中明显的变化，如下：
+
+![](img/bug11.png)
+
+### 9. ###
+这里再跳过一些非关键的步骤，直接到下面的程序语句的执行，程序代码如下：
+
+	for (j = 1; j <= 10; j++)
+		ListInsert(&L, j, j);
+
+插入11个数据(你可以数data的数量，你就知道是11个元素了)到目前为空的链表L中，多次单步跨过程执行之后，最终在“局部变量”窗口中输出的提示信息如下：
+
+![](img/bug12.png)
+
+### 10. ###
+跳过一些F10步骤，直接到下面的程序语句的执行，代码如下：
+
+	ListInsert(&L, 1, 0);
+
+这个语句的作用是在链表L的第1个位置插入元素0，可以明显在“局部变量”窗口中看到提示信息（我在这里用的是非16进制显示，目的便于看清楚）,补充一句，由于插入一个元素，可以知道链表L的长度增加了1位。
+
+![](img/bug13.png)
+
+### 11. ###
+跳过一些F10步骤，直接到下面的程序语句的执行，代码如下：
+
+	GetElem(L, 5, &e);
+
+程序的作用是：
+
+    /* Initial condition: sequential linear table L already exists,1≤i≤ListLength(L) */
+    /* Operation result: returns the value of the first I data element in L with e */
+    Status GetElem(LinkList L, int i, ElemType *e) {
+    	int j;
+    	LinkList p; /* Declare a node p */
+    	p = L->next; /* Let p point to the first node of the LinkList L */
+    	j = 1; /* j as a counter */
+    	while (p && j < i) {
+    		p = p->next; /* when p is not empty or counter j is not equal to i,the cycle continues */
+    		++j;
+    	}
+    	if (!p || j>i)
+    		return ERROR; /* The i element does not exist */
+    	*e = p->data; /* Take the i-th element data */
+    	return OK;
+    }
 
 
 
