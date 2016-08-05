@@ -101,6 +101,7 @@ Status ListDelete(StaticLinkList L, int i) {
 	return OK;
 }
 
+/* 链表L的长度 */
 Status ListTraverse(StaticLinkList L) {
 	int j = 0;
 	int i = L[MAXSIZE - 1].cur;
