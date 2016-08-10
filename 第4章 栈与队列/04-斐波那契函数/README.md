@@ -91,14 +91,46 @@ int Fbi(int i)  /* 斐波那契的递归函数 */
 
 下面这一步骤，比较特殊了，不用F10单步调试了，看不清楚关键的结果，要用F11单步调试了，自己调试一遍你就会明白为什么递归调用比迭代调用速度慢了，因为递归调用运行的程序语句更多，通过自己调试就能看出来。
 
-这里是用return 语句返回值的，不是用printf()
-
-
+这里是用return 语句返回值的，不是用printf()，我明白了是function中可以用return返回值，但是在main()还是用printf()输出值的。
 
 # 总结
 
+## 1.
+
+F11单步调试比F10 单步调试更加精细，从这个例子中就明显看出来，这个例子是最好的说明。
+
+## 2.
+
+用return 语句返回值的，不是用printf()，
+
+我明白了是function中可以用return返回值，但是在main()还是用printf()输出值的。
+
+这是我第一次见到。
+
+写一个测试程序说明一下：
+
+```
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+
+int Re() {
+	int i;
+	i = 55;
+	return i;
+}
+
+int main() {
+	printf("%d\n", Re());
+	system("pause");
+}
+```
+
+在CMD窗口中可以看到的提示结果是：
+
+![](img/img9.png)
 
 
 
 
-# 
+
