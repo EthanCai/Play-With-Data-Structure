@@ -97,10 +97,79 @@ Status Pop(LinkStack *S, SElemType *e) {
 
 > 看下这里，数据是实实在在地减少了，与顺序栈完全不同，思考一下是怎么回事？？
 
+## 6.
 
+按下一次F10，在程序中单步调试的程序是：
 
+```
+	GetTop(s, &e);
+```
 
+该函数的原型是：
 
+```
+/* 若栈不空，则用e返回S的栈顶元素，并返回OK；否则返回ERROR */
+Status GetTop(LinkStack S, SElemType *e) {
+	if (S.top == NULL)
+		return ERROR;
+	else
+		*e = S.top->data;
+	return OK;
+}
+```
 
+可以在“局部变量”窗口中看到提示信息：
+
+![](img/img7.png)
+
+## 7.
+
+按下1次F10，执行的程序代码如下：
+
+```
+	printf("栈顶元素 e=%d 栈的长度为%d\n", e, StackLength(s));
+```
+
+可以在“局部变量”窗口中看到的提示信息如下：
+
+![](img/img8.png)
+
+在“CMD”窗口中看到的提示信息如下：
+
+![](img/img9.png)
+
+## 8.
+
+按下1次F10，执行的程序是：
+
+```
+	ClearStack(&s);
+```
+
+函数原型是：
+
+```
+/* 把S置为空栈 */
+Status ClearStack(LinkStack *S) {
+	LinkStackPtr p, q;
+	p = S->top;
+	while (p) {
+		q = p;
+		p = p->next;
+		free(q);
+	}
+	S->count = 0;
+	return OK;
+}
+```
+
+在“局部变量”窗口中看到的提示信息如下：
+
+![](img/img10.png)
+
+可以看到在链表中的数据被清空了。
 
 # 总结
+
+这里的总结是一个问题，链栈程序当中数据是实实在在地减少了，与顺序栈完全不同，思考一下是怎么回事？？
+
