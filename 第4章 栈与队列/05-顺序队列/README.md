@@ -198,6 +198,8 @@ Status DeQueue(SqQueue *Q, QElemType *e) {
 可以观察到图形的变化如下：
 
 ![](img/nb5.png)
+
+
 但是，在内存之中，这里data[0]的元素是没有删除的，证明的图形如下：
 
 
