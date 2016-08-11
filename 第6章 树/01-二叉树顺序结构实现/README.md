@@ -108,6 +108,149 @@
 
 ![](img/img8.png)
 
+## 7. ##
+按下F10，执行的程序如下：
+
+	printf("层序遍历二叉树:\n");
+	LevelOrderTraverse(T);
+
+上面的函数的原型如下：
+
+    /* 层序遍历二叉树 */
+    void LevelOrderTraverse(SqBiTree T) {
+    	int i = MAX_TREE_SIZE - 1, j;
+    	while (T[i] == Nil)
+    		i--; /* 找到最后一个非空结点的序号 */
+    	for (j = 0; j <= i; j++)  /* 从根结点起,按层序遍历二叉树 */
+    		if (T[j] != Nil)
+    			visit(T[j]); /* 只遍历非空的结点 */
+    	printf("\n");
+    }
+
+上面的程序也写得太简单了吧，就是顺序输出数组中的元素。在“局部变量”窗口中是没有什么输出的，主要在CMD窗口中输出结果，可以猜到，不提。
+
+## 8. ##
+按下F10,执行的程序如下：
+
+	printf("前序遍历二叉树:\n");
+	PreOrderTraverse(T);
+
+函数的原型如下：
+
+    /* 初始条件: 二叉树存在 */
+    /* 操作结果: 先序遍历T。 */
+    Status PreOrderTraverse(SqBiTree T) {
+    	if (!BiTreeEmpty(T)) /* 树不空 */
+    		PreTraverse(T, 0);
+    	printf("\n");
+    	return OK;
+    }
+
+其中调用了函数PreTraverse(T, 0)，其函数的原型如下：
+
+    /* PreOrderTraverse()调用 */
+    void PreTraverse(SqBiTree T, int e) {
+    	visit(T[e]);
+    	if (T[2 * e + 1] != Nil) /* 左子树不空 */
+    		PreTraverse(T, 2 * e + 1);
+    	if (T[2 * e + 2] != Nil) /* 右子树不空 */
+    		PreTraverse(T, 2 * e + 2);
+    }
+
+上面的程序用到了递归。
+
+## 9. ##
+按下F10，执行的程序语句如下:
+
+	printf("中序遍历二叉树:\n");
+	InOrderTraverse(T);
+
+函数的原型如下:
+
+    /* 初始条件: 二叉树存在 */
+    /* 操作结果: 中序遍历T。 */
+    Status InOrderTraverse(SqBiTree T) {
+    	if (!BiTreeEmpty(T)) /* 树不空 */
+    		InTraverse(T, 0);
+    	printf("\n");
+    	return OK;
+    }
+
+其在函数中用到了这个函数：InTraverse(T, 0)，其函数的原型如下：
+
+    /* InOrderTraverse()调用 */
+    void InTraverse(SqBiTree T, int e) {
+    	if (T[2 * e + 1] != Nil) /* 左子树不空 */
+    		InTraverse(T, 2 * e + 1);
+    	visit(T[e]);
+    	if (T[2 * e + 2] != Nil) /* 右子树不空 */
+    		InTraverse(T, 2 * e + 2);
+    }
+
+## 10. ##
+按下F10，执行的程序语句如下：
+
+	printf("后序遍历二叉树:\n");
+	PostOrderTraverse(T);
+
+其函数的原型如下：
+
+    /* 初始条件: 二叉树T存在 */
+    /* 操作结果: 后序遍历T。 */
+    Status PostOrderTraverse(SqBiTree T) {
+    	if (!BiTreeEmpty(T)) /* 树不空 */
+    		PostTraverse(T, 0);
+    	printf("\n");
+    	return OK;
+    }
+
+其在函数中调用了这个函数PostTraverse(T, 0)，函数的原型如下：
+
+    /* PostOrderTraverse()调用 */
+    void PostTraverse(SqBiTree T, int e) {
+    	if (T[2 * e + 1] != Nil) /* 左子树不空 */
+    		PostTraverse(T, 2 * e + 1);
+    	if (T[2 * e + 2] != Nil) /* 右子树不空 */
+    		PostTraverse(T, 2 * e + 2);
+    	visit(T[e]);
+    }
+明显地用到了递归。
+
+## 11. ##
+按下F10，运行的程序如下：
+
+	printf("修改结点的层号3本层序号2。");
+	p.level = 3;
+	p.order = 2;
+	e = Value(T, p);
+
+我自己猜这个元素就是5，也就是e的值是5。验证了自己的猜想。
+
+![](img/img9.png)
+
+## 12. ##
+按下F10，执行下列的程序语句：
+
+	printf("待修改结点的原值为%d请输入新值:50 ", e);
+	e = 50;
+	Assign(T, p, e);
+
+没有让自己输入，系统默认输入的是50.
+
+![](img/img10.png)
+
+## 13. ##
+在后面执行的程序就是：
+
+    	printf("结点%d的双亲为%d,左右孩子分别为", e, Parent(T, e));
+    	printf("%d,%d,左右兄弟分别为", LeftChild(T, e), RightChild(T, e));
+    	printf("%d,%d\n", LeftSibling(T, e), RightSibling(T, e));
+    	ClearBiTree(T);
+
+
+----------
+
+没有什么新意了，也没有什么难度了
 
 # 总结 #
 ## 1. ##
