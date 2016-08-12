@@ -7,6 +7,64 @@
 
 ![](img/img1.png)
 
+## 2. ##
+按下F10，执行了以下程序：
+
+    int main() {
+    	int i;
+    	BiTree T;
+    	TElemType e1;
+
+在“局部变量”窗口中显示的结果如下：
+
+![](img/img2.png)
+
+## 3. ##
+按下F10，执行下面的程序，建立二叉树的链式存储结构：
+
+	StrAssign(str, "ABDH#K###E##CFI###G#J##");
+
+	CreateBiTree(&T);
+
+可以看到在“局部变量”窗口中反馈的信息如下：（窗口只是部分的）
+
+![](img/img3.png)
+
+## 4. ##
+按下F10，执行下列的程序：
+
+	printf("构造空二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+	e1 = Root(T);
+	printf("二叉树的根为: %c\n", e1);
+
+不是特别的复杂的代码，在“局部变量”窗口中反馈的信息如下：
+
+![](img/img4.png)
+
+## 5. ##
+按下F10，执行下面的程序：
+
+	printf("\n前序遍历二叉树:");
+	PreOrderTraverse(T);
+	printf("\n中序遍历二叉树:");
+	InOrderTraverse(T);
+	printf("\n后序遍历二叉树:");
+	PostOrderTraverse(T);
+
+上面的程序是遍历，主要看CMD窗口如下：
+
+![](img/img5.png)
+
+## 6. ##
+按下F10，执行下面的程序：
+
+     ClearBiTree(&T);
+     printf("\n清除二叉树后,树空否？%d(1:是 0:否) 树的深度=%d\n", BiTreeEmpty(T), BiTreeDepth(T));
+     i = Root(T);
+     if (!i)
+     printf("树空，无根\n");
+
+上面的程序，不是特别复杂的，可以在程序中自己看。
 
 
 # 总结 #
