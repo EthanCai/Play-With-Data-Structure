@@ -4,11 +4,70 @@
 
 2016/8/13 11:14:03 不行，这个好比游戏闯关，第1关都过不了，后面怎么玩。
 
+2016/8/13 14:44:06 这个程序有进展了！这个程序经过我的百般调戏（试），虽不够完美，但简单粗暴。
+
+![](img/result.png)
+
+上面输入的程序，是按照下面的邻接矩阵结构来的啦。
+
+结点信息：
+
+![](img/result1.png)
+
+顶点数组：
+
+![](img/result2.png)
+
+边数组：
+
+![](img/result3.png)
+
+上面的边数组信息如何去检验，且看内存中的表达？
+
+![](img/result4.png)
+
+![](img/result5.png)
 # 调试信息 #
+我是先做的运行结果和总结部分，这两部分昨晚，感觉，调试信息就没有什么必要了。
 
+## 1. ##
+按下F10，编辑器将程序中的变量信息输出出来，此时还没有初始化，变量还没有申明。
 
+![](img/img1.png)
 
+## 2. ##
+按下F10之后，执行下面的程序：
 
+    int main(void) {
+    	MGraph G;
+
+在“局部变量”窗口中输出的信息如下：
+
+![](img/img2.png)
+
+## 3. ##
+按下F10之后，执行下面的函数：
+
+    /* 建立无向网图的邻接矩阵表示 */
+    void CreateMGraph(MGraph *G) {
+    	int i, j, k, w;
+    	printf("输入顶点数和边数:\n");
+    	scanf_s("%d,%d", &G->numNodes, &G->numEdges); /* 输入顶点数和边数 */
+    	for (i = 0; i <G->numNodes; i++) /* 读入顶点信息,建立顶点表 */
+    		scanf_s("%d",&G->vexs[i]);
+    	for (i = 0; i <G->numNodes; i++)
+    		for (j = 0; j <G->numNodes; j++)
+    			G->arc[i][j] = INFINITY;	/* 邻接矩阵初始化 */
+    	for (k = 0; k <G->numEdges; k++) /* 读入numEdges条边，建立邻接矩阵 */
+    	{
+    		printf("输入边(vi,vj)上的下标i，下标j和权w:\n");
+    		scanf_s("%d,%d,%d", &i, &j, &w); /* 输入边(vi,vj)上的权w */
+    		G->arc[i][j] = w;
+    		G->arc[j][i] = G->arc[i][j]; /* 因为是无向图，矩阵对称 */
+    	}
+    }
+
+就是弹出CMD窗口输入信息了。
 
 # 总结 #
 ## 1. ##

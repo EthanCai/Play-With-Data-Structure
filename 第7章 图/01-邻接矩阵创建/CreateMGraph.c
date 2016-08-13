@@ -8,12 +8,12 @@
 #define ERROR 0
 #define TRUE 1
 #define FALSE 0
-#define MAXVEX 10 /* 最大顶点数，应由用户定义 */
-#define INF 65535
+#define MAXVEX 5 /* 最大顶点数，应由用户定义 */
+#define INFINITY 65535
 
 typedef int Status;	/* Status是函数的类型,其值是函数结果状态代码，如OK等 */
-typedef char VertexType; /* 顶点类型应由用户定义  */
-typedef int EdgeType;	/* 边上的权值类型应由用户定义 */
+typedef int VertexType; /* 顶点类型应由用户定义  */
+typedef int EdgeType; /* 边上的权值类型应由用户定义 */
 typedef struct {
 	VertexType vexs[MAXVEX]; /* 顶点表 */
 	EdgeType arc[MAXVEX][MAXVEX];/* 邻接矩阵，可看作边表 */
@@ -25,14 +25,11 @@ void CreateMGraph(MGraph *G) {
 	int i, j, k, w;
 	printf("输入顶点数和边数:\n");
 	scanf_s("%d,%d", &G->numNodes, &G->numEdges); /* 输入顶点数和边数 */
-	printf("读入顶点信息,建立顶点表\n");
-
 	for (i = 0; i <G->numNodes; i++) /* 读入顶点信息,建立顶点表 */
-		/* 这里一个问题，怎么输入数组元素，空格间隔元素 */
-		scanf_s("%s",&G->vexs[i]);
+		scanf_s("%d",&G->vexs[i]);
 	for (i = 0; i <G->numNodes; i++)
 		for (j = 0; j <G->numNodes; j++)
-			G->arc[i][j] = INF;	/* 邻接矩阵初始化 */
+			G->arc[i][j] = INFINITY;	/* 邻接矩阵初始化 */
 	for (k = 0; k <G->numEdges; k++) /* 读入numEdges条边，建立邻接矩阵 */
 	{
 		printf("输入边(vi,vj)上的下标i，下标j和权w:\n");
