@@ -50,15 +50,16 @@ void  CreateALGraph(GraphAdjList *G) {
 	{
 		printf("输入边(vi,vj)上的顶点序号:\n");
 		scanf_s("%d,%d", &i, &j); /* 输入边(vi,vj)上的顶点序号 */
+
 		e = (EdgeNode *)malloc(sizeof(EdgeNode)); /* 向内存申请空间,生成边表结点 */
 		e->adjvex = j;					/* 邻接序号为j */
-		e->next = G->adjList[i].firstedge;	/* 将e的指针指向当前顶点上指向的结点 */
-		G->adjList[i].firstedge = e;		/* 将当前顶点的指针指向e */
+		e->next = G->adjList[i-1].firstedge;	/* 将e的指针指向当前顶点上指向的结点 */
+		G->adjList[i-1].firstedge = e;		/* 将当前顶点的指针指向e */
 
 		e = (EdgeNode *)malloc(sizeof(EdgeNode)); /* 向内存申请空间,生成边表结点 */
 		e->adjvex = i;					/* 邻接序号为i */
-		e->next = G->adjList[j].firstedge;	/* 将e的指针指向当前顶点上指向的结点 */
-		G->adjList[j].firstedge = e;		/* 将当前顶点的指针指向e */
+		e->next = G->adjList[j-1].firstedge;	/* 将e的指针指向当前顶点上指向的结点 */
+		G->adjList[j-1].firstedge = e;		/* 将当前顶点的指针指向e */
 	}
 }
 
