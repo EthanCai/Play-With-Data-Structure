@@ -2,36 +2,37 @@
 #include "string.h"
 #include "stdlib.h"
 
-int Fbi(int i)  /* ì³²¨ÄÇÆõµÄµÝ¹éº¯Êý */
-{
-	if (i < 2)
-		return i == 0 ? 0 : 1;
-	return Fbi(i - 1) + Fbi(i - 2);  /* ÕâÀïFbi¾ÍÊÇº¯Êý×Ô¼º£¬µÈÓÚÔÚµ÷ÓÃ×Ô¼º */
+int Fbi(int i) {    /* æ–æ³¢é‚£å¥‘çš„é€’å½’å‡½æ•° */
+    if (i < 2)
+        return i == 0 ? 0 : 1;
+    return Fbi(i - 1) + Fbi(i - 2);  /* è¿™é‡ŒFbiå°±æ˜¯å‡½æ•°è‡ªå·±ï¼Œç­‰äºŽåœ¨è°ƒç”¨è‡ªå·± */
 }
 
 int main() {
-	int i;
-	int a[40];
-	printf("µü´úÏÔÊ¾ì³²¨ÄÇÆõÊýÁÐ£º\n");
-	a[0] = 0;
-	a[1] = 1;
-	printf("%d ", a[0]);
-	printf("%d ", a[1]);
-	for (i = 2; i < 40; i++) {
-		a[i] = a[i - 1] + a[i - 2];
-		printf("%d ", a[i]);
-	}
-	printf("\n");
+    int i;
+    int a[40];
+    printf("è¿­ä»£æ˜¾ç¤ºæ–æ³¢é‚£å¥‘æ•°åˆ—ï¼š\n");
+    a[0] = 0;
+    a[1] = 1;
+    printf("%d ", a[0]);
+    printf("%d ", a[1]);
+    for (i = 2; i < 40; i++) {
+        a[i] = a[i - 1] + a[i - 2];
+        printf("%d ", a[i]);
+    }
+    printf("\n");
 
-	printf("\n");
-	printf("Á½ÖÖ²»Í¬µÄ·½Ê½ÏÔÊ¾ì³²¨ÄÇÆõÊýÁÐ:\n");
-	printf("\n");
+    printf("\n");
+    printf("ä¸¤ç§ä¸åŒçš„æ–¹å¼æ˜¾ç¤ºæ–æ³¢é‚£å¥‘æ•°åˆ—:\n");
+    printf("\n");
 
-	printf("µÝ¹éÏÔÊ¾ì³²¨ÄÇÆõÊýÁÐ£º(¿ÉÒÔÃ÷ÏÔµØ¿´µ½µÝ¹éÏÔÊ¾µÄËÙ¶ÈÂý£¬ÎþÉüÁËÐÔÄÜ)\n");
-	for (i = 0; i < 40; i++)
-		printf("%d ", Fbi(i));
+    printf("é€’å½’æ˜¾ç¤ºæ–æ³¢é‚£å¥‘æ•°åˆ—ï¼š(å¯ä»¥æ˜Žæ˜¾åœ°çœ‹åˆ°é€’å½’æ˜¾ç¤ºçš„é€Ÿåº¦æ…¢ï¼Œç‰ºç‰²äº†æ€§èƒ½)\n");
+    for (i = 0; i < 40; i++)
+        printf("%d ", Fbi(i));
 
-	system("pause");
-	return 0;
+    printf("\n");
+
+    system("(pause || read) 2>/dev/null");
+    return 0;
 }
 

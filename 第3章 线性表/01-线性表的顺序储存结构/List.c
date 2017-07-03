@@ -1,9 +1,17 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-#ifdef __APPLE__
+#ifdef _WIN64
+#include "io.h"
+#elif _WIN32
+#include "io.h"
+#elif __APPLE__
 #include "sys/uio.h"
-#else
+#elif __linux
+#include "sys/io.h"
+#elif __unix
+#include "sys/io.h"
+#elif __posix
 #include "sys/io.h"
 #endif
 
@@ -220,6 +228,6 @@ int main() {
     printf("The output of the L is combined with the elements of the Lb in turn:");
     ListTraverse(L);
 
-    system("pause");
+    system("(pause || read) 2>/dev/null");
     return 0;
 }
