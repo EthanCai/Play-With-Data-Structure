@@ -27,6 +27,8 @@
 
 /* Initial allocation of storage space */
 #define MAXSIZE 20
+
+
 /* Status is a function of the type, and its value is the result of the function of the state code, such as OK, etc. */
 typedef int Status;
 /* ElemType type according to the actual situation, here is the assumption that int */
@@ -41,6 +43,7 @@ typedef struct Node {
     ElemType data;
     struct Node *next;
 } Node;
+
 /* Define LinkList*/
 typedef struct Node *LinkList;
 
