@@ -1,167 +1,167 @@
-#include "stdio.h"    
-#include "stdlib.h"   
-#include "io.h"  
-#include "math.h"  
+#include "stdio.h"
+#include "stdlib.h"
+#include "io.h"
+#include "math.h"
 #include "time.h"
 
 #define OK 1
 #define ERROR 0
 #define TRUE 1
 #define FALSE 0
-#define MAXSIZE 20 /* ´æ´¢¿Õ¼ä³õÊ¼·ÖÅäÁ¿ */
+#define MAXSIZE 20 /* å­˜å‚¨ç©ºé—´åˆå§‹åˆ†é…é‡ */
 
 typedef int Status;
 
-typedef int QElemType; /* QElemTypeÀàĞÍ¸ù¾İÊµ¼ÊÇé¿ö¶ø¶¨£¬ÕâÀï¼ÙÉèÎªint */
+typedef int QElemType; /* QElemTypeç±»å‹æ ¹æ®å®é™…æƒ…å†µè€Œå®šï¼Œè¿™é‡Œå‡è®¾ä¸ºint */
 
-typedef struct QNode	/* ½áµã½á¹¹ */
+typedef struct QNode    /* ç»“ç‚¹ç»“æ„ */
 {
-	QElemType data;
-	struct QNode *next;
-}QNode, *QueuePtr;
+    QElemType data;
+    struct QNode *next;
+} QNode, *QueuePtr;
 
-typedef struct			/* ¶ÓÁĞµÄÁ´±í½á¹¹ */
+typedef struct            /* é˜Ÿåˆ—çš„é“¾è¡¨ç»“æ„ */
 {
-	QueuePtr front, rear; /* ¶ÓÍ·¡¢¶ÓÎ²Ö¸Õë */
-}LinkQueue;
+    QueuePtr front, rear; /* é˜Ÿå¤´ã€é˜Ÿå°¾æŒ‡é’ˆ */
+} LinkQueue;
 
 Status visit(QElemType c) {
-	printf("%d ", c);
-	return OK;
+    printf("%d ", c);
+    return OK;
 }
 
-/* ¹¹ÔìÒ»¸ö¿Õ¶ÓÁĞQ */
+/* æ„é€ ä¸€ä¸ªç©ºé˜Ÿåˆ—Q */
 Status InitQueue(LinkQueue *Q) {
-	Q->front = Q->rear = (QueuePtr)malloc(sizeof(QNode));
-	if (!Q->front)
-		exit(OVERFLOW);
-	Q->front->next = NULL;
-	return OK;
+    Q->front = Q->rear = (QueuePtr) malloc(sizeof(QNode));
+    if (!Q->front)
+        exit(OVERFLOW);
+    Q->front->next = NULL;
+    return OK;
 }
 
-/* Ïú»Ù¶ÓÁĞQ */
+/* é”€æ¯é˜Ÿåˆ—Q */
 Status DestroyQueue(LinkQueue *Q) {
-	while (Q->front) {
-		Q->rear = Q->front->next;
-		free(Q->front);
-		Q->front = Q->rear;
-	}
-	return OK;
+    while (Q->front) {
+        Q->rear = Q->front->next;
+        free(Q->front);
+        Q->front = Q->rear;
+    }
+    return OK;
 }
 
-/* ½«QÇåÎª¿Õ¶ÓÁĞ */
+/* å°†Qæ¸…ä¸ºç©ºé˜Ÿåˆ— */
 Status ClearQueue(LinkQueue *Q) {
-	QueuePtr p, q;
-	Q->rear = Q->front;
-	p = Q->front->next;
-	Q->front->next = NULL;
-	while (p) {
-		q = p;
-		p = p->next;
-		free(q);
-	}
-	return OK;
+    QueuePtr p, q;
+    Q->rear = Q->front;
+    p = Q->front->next;
+    Q->front->next = NULL;
+    while (p) {
+        q = p;
+        p = p->next;
+        free(q);
+    }
+    return OK;
 }
 
-/* ÈôQÎª¿Õ¶ÓÁĞ,Ôò·µ»ØTRUE,·ñÔò·µ»ØFALSE */
+/* è‹¥Qä¸ºç©ºé˜Ÿåˆ—,åˆ™è¿”å›TRUE,å¦åˆ™è¿”å›FALSE */
 Status QueueEmpty(LinkQueue Q) {
-	if (Q.front == Q.rear)
-		return TRUE;
-	else
-		return FALSE;
+    if (Q.front == Q.rear)
+        return TRUE;
+    else
+        return FALSE;
 }
 
-/* Çó¶ÓÁĞµÄ³¤¶È */
+/* æ±‚é˜Ÿåˆ—çš„é•¿åº¦ */
 int QueueLength(LinkQueue Q) {
-	int i = 0;
-	QueuePtr p;
-	p = Q.front;
-	while (Q.rear != p) {
-		i++;
-		p = p->next;
-	}
-	return i;
+    int i = 0;
+    QueuePtr p;
+    p = Q.front;
+    while (Q.rear != p) {
+        i++;
+        p = p->next;
+    }
+    return i;
 }
 
-/* Èô¶ÓÁĞ²»¿Õ,ÔòÓÃe·µ»ØQµÄ¶ÓÍ·ÔªËØ,²¢·µ»ØOK,·ñÔò·µ»ØERROR */
+/* è‹¥é˜Ÿåˆ—ä¸ç©º,åˆ™ç”¨eè¿”å›Qçš„é˜Ÿå¤´å…ƒç´ ,å¹¶è¿”å›OK,å¦åˆ™è¿”å›ERROR */
 Status GetHead(LinkQueue Q, QElemType *e) {
-	QueuePtr p;
-	if (Q.front == Q.rear)
-		return ERROR;
-	p = Q.front->next;
-	*e = p->data;
-	return OK;
+    QueuePtr p;
+    if (Q.front == Q.rear)
+        return ERROR;
+    p = Q.front->next;
+    *e = p->data;
+    return OK;
 }
 
 
-/* ²åÈëÔªËØeÎªQµÄĞÂµÄ¶ÓÎ²ÔªËØ */
+/* æ’å…¥å…ƒç´ eä¸ºQçš„æ–°çš„é˜Ÿå°¾å…ƒç´  */
 Status EnQueue(LinkQueue *Q, QElemType e) {
-	QueuePtr s = (QueuePtr)malloc(sizeof(QNode));
-	if (!s) /* ´æ´¢·ÖÅäÊ§°Ü */
-		exit(OVERFLOW);
-	s->data = e;
-	s->next = NULL;
-	Q->rear->next = s;	/* °ÑÓµÓĞÔªËØeµÄĞÂ½áµãs¸³Öµ¸øÔ­¶ÓÎ²½áµãµÄºó¼Ì£¬¼ûÍ¼ÖĞ¢Ù */
-	Q->rear = s;		/* °Ñµ±Ç°µÄsÉèÖÃÎª¶ÓÎ²½áµã£¬rearÖ¸Ïòs£¬¼ûÍ¼ÖĞ¢Ú */
-	return OK;
+    QueuePtr s = (QueuePtr) malloc(sizeof(QNode));
+    if (!s) /* å­˜å‚¨åˆ†é…å¤±è´¥ */
+        exit(OVERFLOW);
+    s->data = e;
+    s->next = NULL;
+    Q->rear->next = s;    /* æŠŠæ‹¥æœ‰å…ƒç´ eçš„æ–°ç»“ç‚¹sèµ‹å€¼ç»™åŸé˜Ÿå°¾ç»“ç‚¹çš„åç»§ï¼Œè§å›¾ä¸­â‘  */
+    Q->rear = s;        /* æŠŠå½“å‰çš„sè®¾ç½®ä¸ºé˜Ÿå°¾ç»“ç‚¹ï¼ŒrearæŒ‡å‘sï¼Œè§å›¾ä¸­â‘¡ */
+    return OK;
 }
 
-/* Èô¶ÓÁĞ²»¿Õ,É¾³ıQµÄ¶ÓÍ·ÔªËØ,ÓÃe·µ»ØÆäÖµ,²¢·µ»ØOK,·ñÔò·µ»ØERROR */
+/* è‹¥é˜Ÿåˆ—ä¸ç©º,åˆ é™¤Qçš„é˜Ÿå¤´å…ƒç´ ,ç”¨eè¿”å›å…¶å€¼,å¹¶è¿”å›OK,å¦åˆ™è¿”å›ERROR */
 Status DeQueue(LinkQueue *Q, QElemType *e) {
-	QueuePtr p;
-	if (Q->front == Q->rear)
-		return ERROR;
-	p = Q->front->next;		/* ½«ÓûÉ¾³ıµÄ¶ÓÍ·½áµãÔİ´æ¸øp£¬¼ûÍ¼ÖĞ¢Ù */
-	*e = p->data;				/* ½«ÓûÉ¾³ıµÄ¶ÓÍ·½áµãµÄÖµ¸³Öµ¸øe */
-	Q->front->next = p->next;/* ½«Ô­¶ÓÍ·½áµãµÄºó¼Ìp->next¸³Öµ¸øÍ·½áµãºó¼Ì£¬¼ûÍ¼ÖĞ¢Ú */
-	if (Q->rear == p)		/* Èô¶ÓÍ·¾ÍÊÇ¶ÓÎ²£¬ÔòÉ¾³ıºó½«rearÖ¸ÏòÍ·½áµã£¬¼ûÍ¼ÖĞ¢Û */
-		Q->rear = Q->front;
-	free(p);
-	return OK;
+    QueuePtr p;
+    if (Q->front == Q->rear)
+        return ERROR;
+    p = Q->front->next;        /* å°†æ¬²åˆ é™¤çš„é˜Ÿå¤´ç»“ç‚¹æš‚å­˜ç»™pï¼Œè§å›¾ä¸­â‘  */
+    *e = p->data;                /* å°†æ¬²åˆ é™¤çš„é˜Ÿå¤´ç»“ç‚¹çš„å€¼èµ‹å€¼ç»™e */
+    Q->front->next = p->next;/* å°†åŸé˜Ÿå¤´ç»“ç‚¹çš„åç»§p->nextèµ‹å€¼ç»™å¤´ç»“ç‚¹åç»§ï¼Œè§å›¾ä¸­â‘¡ */
+    if (Q->rear == p)        /* è‹¥é˜Ÿå¤´å°±æ˜¯é˜Ÿå°¾ï¼Œåˆ™åˆ é™¤åå°†rearæŒ‡å‘å¤´ç»“ç‚¹ï¼Œè§å›¾ä¸­â‘¢ */
+        Q->rear = Q->front;
+    free(p);
+    return OK;
 }
 
-/* ´Ó¶ÓÍ·µ½¶ÓÎ²ÒÀ´Î¶Ô¶ÓÁĞQÖĞÃ¿¸öÔªËØÊä³ö */
+/* ä»é˜Ÿå¤´åˆ°é˜Ÿå°¾ä¾æ¬¡å¯¹é˜Ÿåˆ—Qä¸­æ¯ä¸ªå…ƒç´ è¾“å‡º */
 Status QueueTraverse(LinkQueue Q) {
-	QueuePtr p;
-	p = Q.front->next;
-	while (p) {
-		visit(p->data);
-		p = p->next;
-	}
-	printf("\n");
-	return OK;
+    QueuePtr p;
+    p = Q.front->next;
+    while (p) {
+        visit(p->data);
+        p = p->next;
+    }
+    printf("\n");
+    return OK;
 }
 
 int main() {
-	int i;
-	QElemType d;
-	LinkQueue q;
-	i = InitQueue(&q);
-	if (i)
-		printf("³É¹¦µØ¹¹ÔìÁËÒ»¸ö¿Õ¶ÓÁĞ!\n");
-	printf("ÊÇ·ñ¿Õ¶ÓÁĞ£¿%d(1:¿Õ 0:·ñ)  ", QueueEmpty(q));
-	printf("¶ÓÁĞµÄ³¤¶ÈÎª%d\n", QueueLength(q));
-	EnQueue(&q, -5);
-	EnQueue(&q, 5);
-	EnQueue(&q, 10);
-	printf("²åÈë3¸öÔªËØ(-5,5,10)ºó,¶ÓÁĞµÄ³¤¶ÈÎª%d\n", QueueLength(q));
-	printf("ÊÇ·ñ¿Õ¶ÓÁĞ£¿%d(1:¿Õ 0:·ñ)  ", QueueEmpty(q));
-	printf("¶ÓÁĞµÄÔªËØÒÀ´ÎÎª£º");
-	QueueTraverse(q);
-	i = GetHead(q, &d);
-	if (i == OK)
-		printf("¶ÓÍ·ÔªËØÊÇ£º%d\n", d);
-	DeQueue(&q, &d);
-	printf("É¾³ıÁË¶ÓÍ·ÔªËØ%d\n", d);
-	i = GetHead(q, &d);
-	if (i == OK)
-		printf("ĞÂµÄ¶ÓÍ·ÔªËØÊÇ£º%d\n", d);
-	ClearQueue(&q);
-	printf("Çå¿Õ¶ÓÁĞºó,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
-	DestroyQueue(&q);
-	printf("Ïú»Ù¶ÓÁĞºó,q.front=%u q.rear=%u\n", q.front, q.rear);
+    int i;
+    QElemType d;
+    LinkQueue q;
+    i = InitQueue(&q);
+    if (i)
+        printf("æˆåŠŸåœ°æ„é€ äº†ä¸€ä¸ªç©ºé˜Ÿåˆ—!\n");
+    printf("æ˜¯å¦ç©ºé˜Ÿåˆ—ï¼Ÿ%d(1:ç©º 0:å¦)  ", QueueEmpty(q));
+    printf("é˜Ÿåˆ—çš„é•¿åº¦ä¸º%d\n", QueueLength(q));
+    EnQueue(&q, -5);
+    EnQueue(&q, 5);
+    EnQueue(&q, 10);
+    printf("æ’å…¥3ä¸ªå…ƒç´ (-5,5,10)å,é˜Ÿåˆ—çš„é•¿åº¦ä¸º%d\n", QueueLength(q));
+    printf("æ˜¯å¦ç©ºé˜Ÿåˆ—ï¼Ÿ%d(1:ç©º 0:å¦)  ", QueueEmpty(q));
+    printf("é˜Ÿåˆ—çš„å…ƒç´ ä¾æ¬¡ä¸ºï¼š");
+    QueueTraverse(q);
+    i = GetHead(q, &d);
+    if (i == OK)
+        printf("é˜Ÿå¤´å…ƒç´ æ˜¯ï¼š%d\n", d);
+    DeQueue(&q, &d);
+    printf("åˆ é™¤äº†é˜Ÿå¤´å…ƒç´ %d\n", d);
+    i = GetHead(q, &d);
+    if (i == OK)
+        printf("æ–°çš„é˜Ÿå¤´å…ƒç´ æ˜¯ï¼š%d\n", d);
+    ClearQueue(&q);
+    printf("æ¸…ç©ºé˜Ÿåˆ—å,q.front=%u q.rear=%u q.front->next=%u\n", q.front, q.rear, q.front->next);
+    DestroyQueue(&q);
+    printf("é”€æ¯é˜Ÿåˆ—å,q.front=%u q.rear=%u\n", q.front, q.rear);
 
-	system("pause");
-	return 0;
+    system("pause");
+    return 0;
 }
 
