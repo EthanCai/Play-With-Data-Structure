@@ -119,16 +119,16 @@ Status ListInsert(SqList *L, int i, ElemType e) {
 /* Initial condition: sequential linear table L already exists，1≤i≤ListLength(L) */
 /* Operation results: delete the L of the first i data elements, and use e to return its value, the length of the L minus 1 */
 Status ListDelete(SqList *L, int i, ElemType *e) {
-    int k;
-    if (L->length == 0)               /* Linear list is empty */
+    if (L->length == 0)                 // Linear list is empty
         return ERROR;
-    if (i < 1 || i > L->length)         /* Delete position is not correct */
+
+    if (i < 1 || i > L->length)         // Delete position is not correct
         return ERROR;
 
     *e = L->data[i - 1];
-    if (i < L->length)                /* If the delete is not the final location */
+    if (i < L->length)                  // If the delete is not the final location
     {
-        for (k = i; k < L->length; k++)    /* 将删除位置后继元素前移 */
+        for (int k = i; k < L->length; k++)    /* 将删除位置后继元素前移 */
             L->data[k - 1] = L->data[k];
     }
     L->length--;
