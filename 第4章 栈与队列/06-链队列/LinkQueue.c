@@ -1,8 +1,21 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "io.h"
 #include "math.h"
 #include "time.h"
+
+#ifdef _WIN64
+#include "io.h"
+#elif _WIN32
+#include "io.h"
+#elif __APPLE__
+#include "sys/uio.h"
+#elif __linux
+#include "sys/io.h"
+#elif __unix
+#include "sys/io.h"
+#elif __posix
+#include "sys/io.h"
+#endif
 
 #define OK 1
 #define ERROR 0
@@ -161,7 +174,7 @@ int main() {
     DestroyQueue(&q);
     printf("销毁队列后,q.front=%u q.rear=%u\n", q.front, q.rear);
 
-    system("pause");
+    system("(pause || read) 2>/dev/null");
     return 0;
 }
 
