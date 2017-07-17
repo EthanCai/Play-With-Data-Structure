@@ -1,8 +1,21 @@
 #include "stdio.h"
 #include "stdlib.h"
-#include "io.h"
 #include "math.h"
 #include "time.h"
+
+#ifdef _WIN64
+#include "io.h"
+#elif _WIN32
+#include "io.h"
+#elif __APPLE__
+#include "sys/uio.h"
+#elif __linux
+#include "sys/io.h"
+#elif __unix
+#include "sys/io.h"
+#elif __posix
+#include "sys/io.h"
+#endif
 
 #define OK 1
 #define ERROR 0
@@ -92,9 +105,9 @@ Status QueueTraverse(SqQueue Q) {
 }
 
 int main() {
-    Status j;
+
     int i = 0, l;
-    QElemType d;
+
     SqQueue Q;
     InitQueue(&Q);
     printf("初始化队列后，队列空否？%u(1:空 0:否)\n", QueueEmpty(Q));
@@ -102,7 +115,7 @@ int main() {
     printf("请输入整型队列元素(不超过%d个),-1为提前结束符: ", MAXSIZE - 1);
     do {
         /* scanf("%d",&d); */
-        d = i + 100;
+        QElemType d = i + 100;
         if (d == -1)
             break;
         i++;
@@ -112,6 +125,9 @@ int main() {
     printf("队列长度为: %d\n", QueueLength(Q));
     printf("现在队列空否？%u(1:空 0:否)\n", QueueEmpty(Q));
     printf("连续%d次由队头删除元素,队尾插入元素:\n", MAXSIZE);
+
+
+    QElemType d;
     for (l = 1; l <= MAXSIZE; l++) {
         DeQueue(&Q, &d);
         printf("删除的元素是%d,插入的元素:%d \n", d, l + 1000);
@@ -126,18 +142,19 @@ int main() {
     printf("共向队尾插入了%d个元素\n", i + MAXSIZE);
     if (l - 2 > 0)
         printf("现在由队头删除%d个元素:\n", l - 2);
+
     while (QueueLength(Q) > 2) {
         DeQueue(&Q, &d);
         printf("删除的元素值为%d\n", d);
     }
 
-    j = GetHead(Q, &d);
-    if (j)
+    Status ok = GetHead(Q, &d);
+    if (ok)
         printf("现在队头元素为: %d\n", d);
     ClearQueue(&Q);
     printf("清空队列后, 队列空否？%u(1:空 0:否)\n", QueueEmpty(Q));
 
-    system("pause");
+    system("(pause || read) 2>/dev/null");
     return 0;
 }
 

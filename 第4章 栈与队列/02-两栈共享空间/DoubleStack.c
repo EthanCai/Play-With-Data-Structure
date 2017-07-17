@@ -108,13 +108,12 @@ Status StackTraverse(SqDoubleStack S) {
 }
 
 int main() {
-    int j;
     SqDoubleStack s;
-    int e;
     if (InitStack(&s) == OK) {
-        for (j = 1; j <= 5; j++)
+        for (int j = 1; j <= 5; j++)
             Push(&s, j, 1);
-        for (j = MAXSIZE; j >= MAXSIZE - 2; j--)
+
+        for (int j = MAXSIZE; j >= MAXSIZE - 2; j--)
             Push(&s, j, 2);
     }
 
@@ -123,6 +122,7 @@ int main() {
 
     printf("当前栈中元素有：%d \n", StackLength(s));
 
+    int e;
     Pop(&s, &e, 2);
     printf("弹出的栈顶元素 e=%d\n", e);
     printf("栈空否：%d(1:空 0:否)\n", StackEmpty(s));
@@ -139,6 +139,6 @@ int main() {
     ClearStack(&s);
     printf("清空栈后，栈空否：%d(1:空 0:否)\n", StackEmpty(s));
 
-    system("pause");
+    system("(pause || read) 2>/dev/null");
     return 0;
 }

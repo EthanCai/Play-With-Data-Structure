@@ -1,5 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
+#include "math.h"
+#include "time.h"
 
 #ifdef _WIN64
 #include "io.h"
@@ -14,9 +16,6 @@
 #elif __posix
 #include "sys/io.h"
 #endif
-
-#include "math.h"
-#include "time.h"
 
 #define OK 1
 #define ERROR 0
