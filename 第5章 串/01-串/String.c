@@ -10,7 +10,31 @@
 typedef int Status;
 typedef char *String;
 
-int StrLength(String s);
+int StrLength(String s) {
+    if (s == NULL) {
+        return -1;
+    }
+
+    int size = 0;
+    while(*s++ != '\0') {
+        size++;
+    }
+
+    return size;
+}
+
+Status CleanString(String s) {
+    if (s == NULL) {
+        return ERROR;
+    }
+
+    s[0] = '\0';
+    return OK;
+}
+
+_Bool StringEmpty(String s) {
+    return *(s++) == '\0';
+}
 
 Status StrAssign(String dest, String src) {
 
@@ -55,32 +79,6 @@ Status StrCopy(String dest, String src) {
     return OK;
 }
 
-Status CleanString(String s) {
-    if (s == NULL) {
-        return ERROR;
-    }
-
-    s[0] = '\0';
-    return OK;
-}
-
-int StrLength(String s) {
-    if (s == NULL) {
-        return -1;
-    }
-
-    int size = 0;
-    while(*s++ != '\0') {
-        size++;
-    }
-
-    return size;
-}
-
-_Bool StringEmpty(String s) {
-    return *(s++) == '\0';
-}
-
 //int StrCompare(String s, String t) {
 //
 //}
@@ -117,13 +115,13 @@ int main() {
     String s2_1 = (String) malloc(20 * sizeof(char));
     String s2_2 = "hello world!";
     StrCopy(s2_1, s2_2);
-    printf("s2_1 is %s\n", s2_1);
+    printf("After copy s2_2 to s2_1, s2_1 is %s\n", s2_1);
 
     _Bool isEmpty = StringEmpty(s2_1);
     printf(isEmpty ? "s2_1 is empty\n" : "s2_1 is not empty\n");
 
     CleanString(s2_1);
-    printf("after clean, s2_1 is \"%s\"\n", s2_1);
+    printf("After clean s2_1, s2_1 is \"%s\"\n", s2_1);
     _Bool isEmpty2 = StringEmpty("");
     printf(isEmpty2 ? "s2_1 is empty\n" : "s2_1 is not empty\n");
 }

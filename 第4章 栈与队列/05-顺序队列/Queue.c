@@ -30,7 +30,7 @@ typedef int QElemType; /* QElemType类型根据实际情况而定，这里假设
 typedef struct {
     QElemType data[MAXSIZE];
     int front;        /* 头指针 */
-    int rear;        /* 尾指针，若队列不空，指向队列尾元素的下一个位置 */
+    int rear;         /* 尾指针，若队列不空，指向队列尾元素的下一个位置 */
 } SqQueue;
 
 Status visit(QElemType c) {
@@ -53,7 +53,7 @@ Status ClearQueue(SqQueue *Q) {
 
 /* 若队列Q为空队列,则返回TRUE,否则返回FALSE */
 Status QueueEmpty(SqQueue Q) {
-    if (Q.front == Q.rear) /* 队列空的标志 */
+    if (Q.front == Q.rear)      /* 队列空的标志 */
         return TRUE;
     else
         return FALSE;
@@ -76,20 +76,18 @@ Status GetHead(SqQueue Q, QElemType *e) {
 Status EnQueue(SqQueue *Q, QElemType e) {
     if ((Q->rear + 1) % MAXSIZE == Q->front)    /* 队列满的判断 */
         return ERROR;
-    Q->data[Q->rear] = e;            /* 将元素e赋值给队尾 */
-    Q->rear = (Q->rear + 1) % MAXSIZE;/* rear指针向后移一位置， */
-    /* 若到最后则转到数组头部 */
-    return OK;
+    Q->data[Q->rear] = e;                       /* 将元素e赋值给队尾 */
+    Q->rear = (Q->rear + 1) % MAXSIZE;          /* rear指针向后移一位置， */
+    return OK;                                  /* 若到最后则转到数组头部 */
 }
 
 /* 若队列不空，则删除Q中队头元素，用e返回其值 */
 Status DeQueue(SqQueue *Q, QElemType *e) {
-    if (Q->front == Q->rear)            /* 队列空的判断 */
+    if (Q->front == Q->rear)                /* 队列空的判断 */
         return ERROR;
-    *e = Q->data[Q->front];                /* 将队头元素赋值给e */
+    *e = Q->data[Q->front];                 /* 将队头元素赋值给e */
     Q->front = (Q->front + 1) % MAXSIZE;    /* front指针向后移一位置， */
-    /* 若到最后则转到数组头部 */
-    return OK;
+    return OK;                              /* 若到最后则转到数组头部 */
 }
 
 /* 从队头到队尾依次对队列Q中每个元素输出 */
