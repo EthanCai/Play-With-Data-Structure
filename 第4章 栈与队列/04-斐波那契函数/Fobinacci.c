@@ -11,7 +11,7 @@ int Fbi(int i) {    /* 斐波那契的递归函数 */
 }
 
 int Fbi2(int i) {   /* 斐波那契的非递归函数 */
-    int p0 = 1;
+    int p0 = 0;
     int p1 = 1;
 
     if (i == 0) {
